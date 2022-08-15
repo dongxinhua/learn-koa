@@ -10,10 +10,18 @@ class userService {
     const user = new User
     user.name = data.name
     user.password = data.password
-    console.log(data)
     await user.save()
-    console.log(`将数据写入数据库`, data)
-    return 'create'
+    return {
+      code: 200,
+      msg: '注册成功'
+    }
+  }
+
+  async getUserByName(name: string) {
+    const res = await User.findBy({
+      name
+    })
+    return res[0]
   }
 }
 
