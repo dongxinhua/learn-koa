@@ -1,6 +1,18 @@
+import { User } from "../entity/User"
+
+interface UserData {
+  name: string,
+  password: string
+}
+
 class userService {
-  async create(user: any) {
-    console.log(`将数据写入数据库`, user)
+  async create(data: UserData) {
+    const user = new User
+    user.name = data.name
+    user.password = data.password
+    console.log(data)
+    await user.save()
+    console.log(`将数据写入数据库`, data)
     return 'create'
   }
 }
