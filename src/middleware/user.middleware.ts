@@ -1,6 +1,7 @@
 import { Context, Next } from 'koa'
 import { NAME_AND_PASSWORD_NOTNULL, USER_IS_EXISTS } from '../constants/error-types'
 import service from '../service/user.service'
+import { md5Password } from '../utils/user.utils'
 
 export const userInspect = async (ctx: Context, next: Next) => {
   const { name, password } = ctx.request.body
@@ -19,6 +20,14 @@ export const userInspect = async (ctx: Context, next: Next) => {
     const error = new Error(USER_IS_EXISTS)
     return ctx.app.emit('error', error, ctx)
   }
+
+  await next()
+}
+
+export const handlePassword = async (ctx: Context, next: Next) => {
+  const { password } = ctx.request.body
+
+  ctx.request.body.password = md5Password(password)
 
   await next()
 }

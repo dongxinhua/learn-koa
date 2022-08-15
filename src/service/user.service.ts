@@ -11,8 +11,10 @@ class userService {
     user.name = data.name
     user.password = data.password
     await user.save()
-    console.log(`将数据写入数据库`, data)
-    return 'create'
+    return {
+      code: 200,
+      msg: '注册成功'
+    }
   }
 
   async getUserByName(name: string) {
