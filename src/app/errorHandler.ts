@@ -1,5 +1,10 @@
 import { Context } from 'koa'
-import { NAME_AND_PASSWORD_NOTNULL, USER_IS_EXISTS } from '../constants/error-types'
+import {
+  NAME_AND_PASSWORD_NOTNULL,
+  PASSWORD_IS_INCORRECT,
+  USER_IS_EXISTS,
+  USER_IS_NOT_EXISTS
+} from '../constants/error-types'
 
 export const errorHandler = (error: Error, ctx: Context) => {
   let status, msg
@@ -17,6 +22,22 @@ export const errorHandler = (error: Error, ctx: Context) => {
       msg = {
         code: 409,
         msg: '用户名已存在'
+      }
+      break;
+
+    case USER_IS_NOT_EXISTS:
+      status = 400
+      msg = {
+        code: 400,
+        msg: '用户名不存在'
+      }
+      break;
+
+    case PASSWORD_IS_INCORRECT:
+      status = 400
+      msg = {
+        code: 400,
+        msg: '密码错误'
       }
       break;
 
