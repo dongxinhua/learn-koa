@@ -24,10 +24,10 @@ export class User extends BaseEntity {
     nullable: false
   })
   password!: string;
-  
+
   @CreateDateColumn()
   createdAt!: Date;
-      
+
   @UpdateDateColumn()
   updatedAt!: Date;
 
